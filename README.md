@@ -1,83 +1,121 @@
-# Spam Detection System — NLP Pipeline
+# SpamGuard — Sistema di Rilevamento Spam con NLP
 
 ![Python](https://img.shields.io/badge/Python-3.8+-3776AB?logo=python&logoColor=white)
-![spaCy](https://img.shields.io/badge/spaCy-3.x-09A3D5?logo=spacy&logoColor=white)
-![NLTK](https://img.shields.io/badge/NLTK-3.x-green)
-![Jupyter](https://img.shields.io/badge/Notebook-Jupyter-F37626?logo=jupyter&logoColor=white)
+![spaCy](https://img.shields.io/badge/spaCy-NLP-09A3D5)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-Classification-F7931E?logo=scikitlearn&logoColor=white)
+![Accuracy](https://img.shields.io/badge/Accuracy-~97%25-brightgreen)
 
-## Overview
+## Panoramica
 
-End-to-end **NLP pipeline** for email spam detection, combining classical machine learning, topic modelling, and named entity recognition.
-The system goes beyond binary classification: it extracts the dominant themes hidden in spam traffic and identifies organisations mentioned in legitimate emails — skills directly applicable to text analytics in compliance, fraud detection, and enterprise content monitoring.
+Sistema NLP per la classificazione automatica di messaggi spam/ham con accuracy ~97% e F1-score ~0.96. Pipeline completa: preprocessing testuale con spaCy e NLTK, estrazione feature TF-IDF, confronto di classificatori e valutazione con metriche enterprise.
 
----
+Tecniche direttamente trasferibili a sistemi di content moderation, classificazione automatica di email e ticket, fraud detection su testo e governance dei contenuti in ambito enterprise.
 
-## Results
+## Valore Enterprise
 
-| Task | Method | Score |
-|------|--------|-------|
-| Spam/Ham classification | Naive Bayes + SVM | Accuracy ~97%, F1 ~0.96 |
-| Topic modelling (spam) | LDA (5 topics) | Coherence score evaluated |
-| Semantic distance between topics | Cosine similarity | Topics show clear separation |
-| Organisation extraction (ham) | spaCy NER | Precision ~0.89 on ORG entities |
+| Settore / Azienda | Rilevanza |
+|-------------------|-----------|
+| Difesa & Sicurezza (Leonardo) | Content moderation, rilevamento comunicazioni anomale |
+| IT Consulting (NTT Data, Accenture) | NLP pipelines per classificazione automatica documenti |
+| Banking & Insurance | Fraud detection testuale, analisi comunicazioni clienti |
+| Engineering Informatica | Integrazione NLP in applicazioni enterprise |
 
----
+## Risultati
 
-## Pipeline
+| Metrica | Valore |
+|---------|--------|
+| Accuracy | ~97% |
+| F1-Score | ~0.96 |
+| spaCy NER Precision | ~0.89 |
+| Dataset | SMS spam/ham reale |
+
+## Pipeline NLP
 
 ```
-Raw email dataset (CSV)
-        │
-        ▼
-  Text Preprocessing
-  • Tokenisation, stop-word removal
-  • Lemmatisation & stemming (NLTK)
-        │
-        ▼
-  Spam Classifier
-  • Naive Bayes / SVM
-  • Evaluated: accuracy, precision, recall, F1
-        │
-        ├──── Spam emails ────▶ LDA Topic Modelling
-        │                        • 5 dominant topics extracted
-        │                        • Cosine similarity between topics
-        │
-        └──── Ham emails  ────▶ Named Entity Recognition (spaCy)
-                                 • Organisation names extracted
+Testo grezzo
+     │
+     ▼
+Preprocessing (spaCy + NLTK)
+tokenizzazione · lemmatizzazione · rimozione stopwords · NER
+     │
+     ▼
+Feature Extraction → TF-IDF Vectorizer
+     │
+     ▼
+Classificatori (confronto): Naive Bayes · SVM · Logistic Regression · Random Forest
+     │
+     ▼
+Valutazione: Accuracy · Precision · Recall · F1 · Confusion Matrix · AUC-ROC
 ```
-
----
-
-## Key Techniques
-
-- **Text classification**: Naive Bayes and SVM with TF-IDF vectorisation
-- **Topic modelling**: LDA (Latent Dirichlet Allocation) on spam corpus
-- **Semantic distance**: Cosine similarity matrix between LDA topic vectors
-- **NER**: spaCy `en_core_web_sm` model for ORG entity extraction on ham emails
-
----
-
-## Dataset
-
-Large email corpus with spam/ham labels. Features include raw email text.
-Preprocessing reduces vocabulary by ~60% via stop-word removal and lemmatisation.
-
----
 
 ## Setup
 
 ```bash
 git clone https://github.com/sylver86/06-spam-detection-system-nlp-python.git
 cd 06-spam-detection-system-nlp-python
-pip install spacy nltk scikit-learn pandas jupyter
+pip install -r requirements.txt
 python -m spacy download en_core_web_sm
-jupyter notebook
+jupyter notebook notebooks/Progetto_Spam_Filter.ipynb
 ```
 
-Open `Progetto_Spam_Filter.ipynb` and run all cells.
+## Struttura Repository
+
+```
+06-spam-detection-system-nlp-python/
+├── notebooks/
+│   └── Progetto_Spam_Filter.ipynb
+├── data/
+│   ├── spam_dataset.csv
+│   └── spam_dataset_.csv
+├── requirements.txt
+└── README.md
+```
+
+## Stack Tecnologico
+
+`Python 3.8+` · `spaCy` · `NLTK` · `scikit-learn` · `TF-IDF` · `pandas` · `Matplotlib` · `Seaborn`
 
 ---
 
+---
+
+# SpamGuard — NLP-Based Spam Detection System 🇬🇧
+
+![Python](https://img.shields.io/badge/Python-3.8+-3776AB?logo=python&logoColor=white)
+![Accuracy](https://img.shields.io/badge/Accuracy-~97%25-brightgreen)
+
+## Overview
+
+NLP system for automatic spam/ham classification achieving ~97% accuracy and F1-score ~0.96. Full pipeline: text preprocessing with spaCy and NLTK, TF-IDF feature extraction, multi-classifier comparison, and enterprise evaluation metrics.
+
+Techniques directly applicable to enterprise content moderation, email/ticket classification, text-based fraud detection, and digital content governance.
+
+## Results
+
+| Metric | Value |
+|--------|-------|
+| Accuracy | ~97% |
+| F1-Score | ~0.96 |
+| spaCy NER Precision | ~0.89 |
+| Dataset | Real SMS spam/ham |
+
+## NLP Pipeline
+
+```
+Raw text  →  Preprocessing (spaCy + NLTK)  →  TF-IDF
+    →  Classifiers (NB · SVM · LR · RF)  →  Accuracy · F1 · AUC-ROC
+```
+
+## Setup
+
+```bash
+git clone https://github.com/sylver86/06-spam-detection-system-nlp-python.git
+cd 06-spam-detection-system-nlp-python
+pip install -r requirements.txt
+python -m spacy download en_core_web_sm
+jupyter notebook notebooks/Progetto_Spam_Filter.ipynb
+```
+
 ## Technologies
 
-`Python` · `spaCy` · `NLTK` · `Scikit-learn` · `LDA` · `TF-IDF` · `Pandas` · `Jupyter`
+`Python 3.8+` · `spaCy` · `NLTK` · `scikit-learn` · `TF-IDF` · `pandas` · `Matplotlib`
